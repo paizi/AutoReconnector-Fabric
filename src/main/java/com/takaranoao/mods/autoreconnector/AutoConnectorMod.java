@@ -8,11 +8,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.options.ServerEntry;
+import net.minecraft.client.network.ServerInfo;
 import org.apache.logging.log4j.LogManager;
 public class AutoConnectorMod implements ClientModInitializer {
 	@Environment(EnvType.CLIENT)
-	public static ServerEntry lastestServerEntry;
+	public static ServerInfo lastestServerEntry;
 
 	public static int disconnectTick = 0;
 	public static final int MAX_TICK = 20*15;
