@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.client.util.math.MatrixStack;
 
 @Mixin(DisconnectedScreen.class)
 public class MixinDisconnectedScreen {
@@ -17,7 +18,7 @@ public class MixinDisconnectedScreen {
     @Shadow
     private int reasonHeight;
     @Inject(method = "render", at = @At("RETURN"))
-    private void onRender (int p_render_1_, int p_render_2_, float p_render_3_, CallbackInfo ci){
+    private void onRender (MatrixStack matrixStack, int p_render_1_, int p_render_2_, float p_render_3_, CallbackInfo ci){
         if(AutoConnectorMod.lastestServerEntry == null)return;
         MinecraftClient mc = MinecraftClient.getInstance();
         TextRenderer textRenderer = mc.textRenderer;
@@ -25,6 +26,7 @@ public class MixinDisconnectedScreen {
         int width = mc.currentScreen.width;
         int height = mc.currentScreen.height;
         mc.currentScreen.drawCenteredString(
+                matrixStack,
                 textRenderer,
                 I18n.translate("autoReconnector.waitingTime", (AutoConnectorMod.MAX_TICK - AutoConnectorMod.disconnectTick)/20),
                 width/2,
