@@ -3,7 +3,7 @@ package com.takaranoao.mods.autoreconnector;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
@@ -18,7 +18,7 @@ public class AutoConnectorMod implements ClientModInitializer {
 	public static final int MAX_TICK = 20*15;
 	@Override
 	public void onInitializeClient() {
-		ClientTickCallback.EVENT.register(minecraftClient->clientTick());
+		ClientTickEvents.END_CLIENT_TICK.register(minecraftClient->clientTick());
 		LogManager.getLogger().info("Loading Auto Reconnect");
 	}
 	public static void clientTick(){
