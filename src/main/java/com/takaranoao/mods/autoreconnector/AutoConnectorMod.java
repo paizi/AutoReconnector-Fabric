@@ -25,9 +25,11 @@ public class AutoConnectorMod implements ClientModInitializer {
         }
         if (mc.currentScreen instanceof DisconnectedScreen) {
             disconnectTick++;
-            if (disconnectTick >= MAX_TICK && lastestServerEntry != null) {
+            if (disconnectTick == MAX_TICK && lastestServerEntry != null) {
+                System.out.println(disconnectTick);
                 mc.disconnect();
                 ConnectScreen.connect(new TitleScreen(), mc, ServerAddress.parse(lastestServerEntry.address), lastestServerEntry);
+                disconnectTick = 0;
             }
         } else {
             disconnectTick = 0;
