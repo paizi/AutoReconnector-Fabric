@@ -27,7 +27,7 @@ public class MixinDisconnectedScreen {
         if (mc.currentScreen == null) return;
         int width = mc.currentScreen.width;
         int height = mc.currentScreen.height;
-        DrawableHelper.drawCenteredString(
+        DrawableHelper.drawCenteredText(
                 matrixStack,
                 textRenderer,
                 I18n.translate("autoReconnector.waitingTime", (AutoConnectorMod.MAX_TICK - AutoConnectorMod.disconnectTick) / 20),
