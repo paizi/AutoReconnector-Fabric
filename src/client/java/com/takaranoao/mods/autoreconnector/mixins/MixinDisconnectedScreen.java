@@ -7,18 +7,20 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.resource.language.I18n;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+// mixin inheritance due to render method is no longer in DisconnectedScreen class
+// refers to: https://www.fabricmc.net/wiki/tutorial:mixinheritance
 @Mixin(DisconnectedScreen.class)
-public class MixinDisconnectedScreen {
+public class MixinDisconnectedScreen extends MixinScreen {
     private static final int FONT_HEIGHT = 9;
 
     //ref: https://fabricmc.net/wiki/tutorial:mixin_injects
-    @Inject(method = "render", at = @At("RETURN"))
-    private void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    @Override
+    public void onRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (AutoConnectorMod.lastestServerEntry == null) return;
+        if (AutoConnectorMod.disconnectTick == 0) return;
+
         MinecraftClient mc = MinecraftClient.getInstance();
         TextRenderer textRenderer = mc.textRenderer;
         if (mc.currentScreen == null) return;
