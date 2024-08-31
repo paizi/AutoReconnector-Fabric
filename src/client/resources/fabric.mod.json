@@ -23,10 +23,10 @@
     "autoreconnector.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.16.0",
     "fabric": "*",
-    "minecraft": ">=1.20.1",
-    "java": ">=17"
+    "minecraft": ">=1.21",
+    "java": ">=21"
   },
   "suggests": {
     "flamingo": "*"
